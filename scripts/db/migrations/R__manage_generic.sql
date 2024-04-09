@@ -41,15 +41,15 @@ begin
                 generic_tag,
                 generic_text
             )
-            values (select
+            select
                 generic_string,
                 generic_int,
                 generic_numeric,
                 generic_bool,
                 generic_tag,
                 generic_text
-            from record where id=0)
-            RETURNING id
+            from record where id=0
+            RETURNING *
         ),
         update_record as (
             UPDATE generic tgt
@@ -61,14 +61,12 @@ begin
                 generic_tag = src.generic_tag,
                 generic_text = src.generic_text
             from (select * from record where id>0)  src where src.id=tgt.id
-            RETURNING tgt.id
+            RETURNING tgt.*
         ),
         results as(
-            select * from generic where id in (
-                select id from insert_record
-                union all
-                select id from update_record
-            ) 
+            select * from insert_record
+            union all
+            select * from update_record
         ),
 		results_json as (
 			SELECT jsonb_agg(t) recs FROM results t

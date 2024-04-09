@@ -140,6 +140,9 @@ public class RootController {
         return map;
     }
 
+
+    // curl -d '{"generic_string" : "Shail","generic_int" : 46,"generic_numeric" : 84.5,"generic_bool": true,"generic_tag" :"Boss","generic_text" : "Lorem Ipsum"}' -H "Content-Type: application/json"  -H "Authorization: Bearer <key>"  -X POST http://localhost:8080/api/get-data/upsert-generic-data
+    // curl -d '{"id": 1,"generic_string" : "Matt","generic_int" : 48,"generic_numeric" : 84.5,"generic_bool": true,"generic_tag" :"Boss","generic_text" : "Lorem Ipsum"}' -H "Content-Type: application/json"  -H "Authorization: Bearer <key>"  -X POST http://localhost:8080/api/get-data/upsert-generic-data
     @PostMapping("/get-data/{inQuery}")
     @ResponseBody
     public ResponseEntity<JsonNode> getDataFromGateway(@PathVariable String inQuery, @RequestBody String inQueryParams, Authentication authentication) throws JsonProcessingException {
