@@ -4,7 +4,10 @@
 			"name": "API",
 			"path": "api"
 		},
-		
+		{
+			"name": "WEB",
+			"path": "web"
+		},
 		{
 			"name": "DB",
 			"path": "../scripts/db"
