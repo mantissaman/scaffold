@@ -1,10 +1,11 @@
 package com.bnp.arch.api.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.mail.MessagingException;
 
 import com.bnp.arch.api.config.security.JwtTokenUtil;
@@ -12,17 +13,16 @@ import com.bnp.arch.api.model.security.JwtRequest;
 import com.bnp.arch.api.model.security.JwtResponse;
 import com.bnp.arch.api.model.user.User;
 import com.bnp.arch.api.model.user.UserDetail;
+import com.bnp.arch.api.repository.gateway.DataGatewayRepository;
 import com.bnp.arch.api.repository.user.UserRepository;
 import com.bnp.arch.api.service.JwtUserDetailsService;
 import com.bnp.arch.api.util.UtilFunctions;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.jboss.aerogear.security.otp.Totp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RequestMapping("/api")
 @Slf4j
-public class AuthController {
+public class RootController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -50,6 +50,9 @@ public class AuthController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    DataGatewayRepository dataGatewayRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -137,6 +140,12 @@ public class AuthController {
         return map;
     }
 
-
+    @PostMapping("/get-data/{inQuery}")
+    @ResponseBody
+    public ResponseEntity<JsonNode> getDataFromGateway(@PathVariable String inQuery, @RequestBody String inQueryParams, Authentication authentication) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode json = mapper.readTree(dataGatewayRepository.dataGatewayCall(inQuery, inQueryParams, authentication.getName()));
+        return ResponseEntity.ok(json);
+    }
 
 }

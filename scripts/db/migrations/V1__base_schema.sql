@@ -62,3 +62,15 @@ insert into users (first_name,last_name,email,"password",status_id,created_by_id
 	 
 insert into user_authorizations(user_id, role_id)
 values (1, 1);
+
+
+drop table if exists generic cascade;
+create table generic (
+	id serial not null primary key,
+	generic_string varchar,
+	generic_int int,
+	generic_numeric numeric,
+	generic_bool boolean,
+	generic_tag varchar,
+	generic_text text
+);

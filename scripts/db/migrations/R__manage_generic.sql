@@ -41,14 +41,14 @@ begin
                 generic_tag,
                 generic_text
             )
-            select
+            values (select
                 generic_string,
                 generic_int,
                 generic_numeric,
                 generic_bool,
                 generic_tag,
                 generic_text
-            from record where id=0
+            from record where id=0)
             RETURNING id
         ),
         update_record as (
