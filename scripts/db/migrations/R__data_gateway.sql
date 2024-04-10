@@ -17,7 +17,7 @@ declare
 	out_json jsonb;
 begin
 	out_json := '[]';
-    if in_query in ('get-generic-data', 'upsert-generic-data', 'delete-generic-data') then 
+    if in_query in ('get-generic-data', 'get-generic-by-id', 'upsert-generic-data', 'delete-generic-data') then 
         select * into out_json from manage_generic(in_query, in_user_email, in_query_params);
     end if;
 

@@ -20,6 +20,22 @@ begin
 	out_json := '[]';
     if in_query = 'get-generic-data' then 
         select coalesce(json_agg(row_to_json(generic)), '[]') into out_json from generic;
+    elsif in_query = 'get-generic-by-id' then
+        with filters as (
+            select 
+                (in_query_params->>'id')::int id
+        ),
+        meta as (
+            select a.* 
+            from generic a
+            inner join filters f on 1=1
+            where f.id is null or (f.id is not null and f.id=a.id)
+            
+        ),
+		results_json as (
+			SELECT jsonb_agg(t) recs FROM meta t
+		)
+		SELECT coalesce(recs->0, null) into out_json FROM results_json where jsonb_array_length(recs)=1; 
     elsif in_query = 'upsert-generic-data' then
         with record as (
             select 
