@@ -1,0 +1,77 @@
+<div>
+    <div class="submit-form">
+      @if (!submitted) {
+      <div class="form-group">
+        <label for="generic_string">Generic String</label>
+        <input
+          type="text"
+          class="form-control"
+          id="generic_string"
+          required
+          [(ngModel)]="generic.generic_string"
+          name="generic_string"
+        />
+      </div>
+      <div class="form-group">
+        <label for="generic_int">Generic Integer</label>
+        <input
+          type="number"
+          class="form-control"
+          id="generic_int"
+          required
+          [(ngModel)]="generic.generic_int"
+          name="generic_int"
+        />
+      </div>
+      <div class="form-group">
+        <label for="generic_numeric">Generic Numeric</label>
+        <input
+          type="number"
+          class="form-control"
+          id="generic_numeric"
+          required
+          [(ngModel)]="generic.generic_numeric"
+          name="generic_numeric"
+        />
+      </div>
+      <div class="form-group">
+        <input
+          type="checkbox"
+          id="generic_bool"
+          class="form-control"
+          [(ngModel)]="generic.generic_bool" 
+          id="generic_bool"
+        />
+        <label for="generic_bool">
+          I am checking Boolean
+        </label>
+ 
+      </div>
+      <div class="form-group">
+        <label for="generic_tag">Generic Tag</label>
+        <input
+          class="form-control"
+          id="generic_tag"
+          required
+          [(ngModel)]="generic.generic_tag"
+          name="generic_tag"
+        />
+      </div>
+       <div class="form-group">
+        <label for="generic_text">Generic Text</label>
+        <input
+          class="form-control"
+          id="generic_text"
+          required
+          [(ngModel)]="generic.generic_text"
+          name="generic_text"
+        />
+      </div> 
+      <button (click)="saveGeneric()" class="btn btn-success">Submit</button>
+      } @else {
+      <h4>Generic was submitted successfully!</h4>
+      <button class="btn btn-success" (click)="newGeneric()">Add</button>
+      <button class="btn btn-secondary" (click)="back()">Go Back</button>
+      }
+    </div>
+  </div>

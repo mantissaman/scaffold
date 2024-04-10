@@ -1,0 +1,27 @@
+<div class="list row">
+    <div class="col-md-8">
+        <button class="btn btn-success" (click)="newGeneric()">Add</button>
+    </div>
+    <div class="col-md-6">
+      <h4>Generics List</h4>
+      <ul class="list-group">
+        @for (generic of generics; track generic.id; let i = $index) {
+        <li
+          class="list-group-item"
+          [class.active]="i == currentIndex"
+          (click)="setActiveGeneric(generic, i)"
+        >
+          {{ generic.generic_string }}
+        </li>
+        }
+      </ul>
+
+    </div>
+    <div class="col-md-6">
+      <app-generic-details
+        [viewMode]="true"
+        [currentGeneric]="currentGeneric"
+      ></app-generic-details>
+    </div>
+    <button class="btn btn-secondary" (click)="back()">Go Back</button>
+  </div>

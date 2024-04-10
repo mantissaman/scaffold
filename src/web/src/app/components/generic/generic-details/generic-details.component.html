@@ -1,0 +1,125 @@
+@if (viewMode){
+    @if (currentGeneric.id){
+    <h4>Generic</h4>
+    <div>
+      <label><strong>ID:</strong></label> {{ currentGeneric.id }}
+    </div>
+    <div>
+      <label><strong>Generic String:</strong></label>
+      {{ currentGeneric.generic_string }}
+    </div>
+    <div>
+        <label><strong>Generic Integer:</strong></label>
+        {{ currentGeneric.generic_int }}
+      </div>
+      <div>
+        <label><strong>Generic Numeric:</strong></label>
+        {{ currentGeneric.generic_numeric }}
+      </div>
+      <div>
+        <label><strong>Generic Tag:</strong></label>
+        {{ currentGeneric.generic_tag }}
+      </div>
+      <div>
+        <label><strong>Generic Text:</strong></label>
+        {{ currentGeneric.generic_text }}
+      </div>
+      <div>
+        <label><strong>Generic Numeric:</strong></label>
+        {{ currentGeneric.generic_numeric }}
+      </div>
+    <div>
+      <label><strong>Generic Boolean:</strong></label>
+      {{ currentGeneric.generic_bool ? "Yes" : "No" }}
+    </div>
+  
+    <a class="badge badge-warning" routerLink="/generics/{{ currentGeneric.id }}">
+      Edit
+    </a>
+    } @else {<p>Please click on a Generic...</p>}
+  } @else {
+    @if (currentGeneric.id) {
+    <div class="edit-form">
+      <h4>Generic</h4>
+      <form>
+        <div class="form-group">
+            <label for="generic_string">Generic String</label>
+            <input
+              type="text"
+              class="form-control"
+              id="generic_string"
+              required
+              [(ngModel)]="currentGeneric.generic_string"
+              name="generic_string"
+            />
+          </div>
+          <div class="form-group">
+            <label for="generic_int">Generic Integer</label>
+            <input
+              type="number"
+              class="form-control"
+              id="generic_int"
+              required
+              [(ngModel)]="currentGeneric.generic_int"
+              name="generic_int"
+            />
+          </div>
+          <div class="form-group">
+            <label for="generic_numeric">Generic Numeric</label>
+            <input
+              type="number"
+              class="form-control"
+              id="generic_numeric"
+              required
+              [(ngModel)]="currentGeneric.generic_numeric"
+              name="generic_numeric"
+            />
+          </div>
+ 
+          <div class="form-group">
+            <label for="generic_tag">Generic Tag</label>
+            <input
+              class="form-control"
+              id="generic_tag"
+              required
+              [(ngModel)]="currentGeneric.generic_tag"
+              name="generic_tag"
+            />
+          </div>
+           <div class="form-group">
+            <label for="generic_text">Generic Text</label>
+            <input
+              class="form-control"
+              id="generic_text"
+              required
+              [(ngModel)]="currentGeneric.generic_text"
+              name="generic_text"
+            />
+          </div> 
+  
+        <div class="form-group">
+          <label><strong>Generic Boolean:</strong></label>
+          {{ currentGeneric.generic_bool ? "Yes" : "No" }}
+        </div>
+      </form>
+  
+
+  
+      <button class="badge badge-danger mr-2" (click)="deleteGeneric()">
+        Delete
+      </button>
+  
+      <button
+        type="submit"
+        class="badge badge-success mb-2"
+        (click)="updateGeneric()">
+        Update
+      </button>
+      <p>{{ message }}</p>
+      <button class="btn btn-secondary" (click)="back()">Go Back</button>
+    </div>
+    } @else {<p>Cannot access this Generic...</p>}
+    
+    
+  }
+  
